@@ -1,0 +1,22 @@
+CREATE TABLE `user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `mobileNumber` varchar(16) DEFAULT NULL,
+  `isActive` tinyint(1) DEFAULT NULL,
+  `isAdmin` tinyint(1) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `receiveNoticeEmail` tinyint(1) DEFAULT NULL,
+  `passwordRecoveryCode` varchar(255) DEFAULT NULL,
+  `orderCount` bigint(20) DEFAULT NULL,
+  `city_id` bigint(20) DEFAULT NULL,
+  `successOrderCount` bigint(20) DEFAULT NULL,
+  `realName` varchar(255) DEFAULT NULL,
+  `removed` tinyint(1) DEFAULT NULL,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `username` (`username`),
+  CONSTRAINT `FK_user_city_id` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
