@@ -8,7 +8,7 @@ from .base import base
 class UserModel(base):
     __tablename__ = "user"
 
-    id = Column(BIGINT(20), primary_key=True)
+    id = Column(BIGINT(20), primary_key=True, autoincrement=True)
     email = Column(VARCHAR(255), unique=True)
     mobileNumber = Column(VARCHAR(16))
     isActive = Column(BOOLEAN)
