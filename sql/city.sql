@@ -36,7 +36,7 @@ CREATE TABLE `city` (
   `denyOrder` tinyint(1) DEFAULT NULL,
   `areaCode` varchar(255) DEFAULT NULL,
   `localNumberLength` int(11) DEFAULT NULL,
-  `meicanExtensionNumberPrefix` varchar(255) DEFAULT NULL,
+  `extensionNumberPrefix` varchar(255) DEFAULT NULL,
   `isInBadWeather` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `cityUrlIndex` (`url`)
