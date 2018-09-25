@@ -2,6 +2,8 @@
 # -*- coding: utf8 -*-
 
 from sqlalchemy import Column, BIGINT, BOOLEAN, VARCHAR, ForeignKey
+from sqlalchemy.orm import relationship
+
 from .base import base
 
 
@@ -22,3 +24,5 @@ class UserModel(base):
     successOrderCount = Column(BIGINT(20))
     realName = Column(VARCHAR(255))
     removed = Column(BOOLEAN)
+    orders = relationship("OrderModel", back_populates="user")
+    addresses = relationship("AddressesModel", back_populates="user")
