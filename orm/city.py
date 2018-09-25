@@ -1,8 +1,11 @@
 # !/usr/bin/env python
 # -*- coding: utf8 -*-
 
-from sqlalchemy.dialects.mysql import DOUBLE, TINYINT
-from sqlalchemy import Column, VARCHAR, ForeignKey, BIGINT, Boolean
+from sqlalchemy import Column, VARCHAR, BIGINT, Boolean
+from sqlalchemy.dialects.mysql import DOUBLE
+
+from .base import base
+
 
 class CityModel(base):
     __tablename__ = 'city'
@@ -20,5 +23,5 @@ class CityModel(base):
     denyOrder = Column(Boolean)
     areaCode = Column(VARCHAR(255))
     localNumberLength = Column(int(11))
-    meicanExtensionNumberPrefix = Column(VARCHAR(255))
+    extensionNumberPrefix = Column(VARCHAR(255))
     isInBadWeather = Column(Boolean)
