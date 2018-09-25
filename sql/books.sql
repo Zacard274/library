@@ -10,6 +10,6 @@ CREATE TABLE `books` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  CONSTRAINT `FK_book_type_id` FOREIGN KEY (`typeId`) REFERENCES `book_type` (`id`)
+  CONSTRAINT `FK_book_type_id` FOREIGN KEY (`typeId`) REFERENCES `book_type` (`id`),
   CONSTRAINT `FK_book_order_id` FOREIGN KEY (`orderId`) REFERENCES `order` (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

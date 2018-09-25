@@ -5,5 +5,5 @@ CREATE TABLE `addresses`(
 `selected` tinyint(1) DEFAULT NULL,
 `removed` tinyint(1) DEFAULT 0,
 PRIMARY KEY (`id`),
-FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
