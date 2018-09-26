@@ -5,6 +5,7 @@ from sqlalchemy import Column, ForeignKey, BIGINT, VARCHAR, INTEGER
 from sqlalchemy.orm import relationship
 
 from .base import base
+from utils.orm_format import model_to_list, model_to_dict
 
 
 class BooksModel(base):
@@ -31,3 +32,11 @@ class BooksOrm(object):
         self.session.add(new_book)
         self.session.commit()
         self.session.close()
+
+    @model_to_dict
+    def get_book_by_id(self, id):
+        return self.session.query(BooksModel).filter_by(id=id).first()
+
+    @model_to_list
+    def get_all_books(self):
+        return self.session.query(BooksModel).order_by(BooksModel.id).all()
