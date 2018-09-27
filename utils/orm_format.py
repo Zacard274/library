@@ -34,3 +34,16 @@ def _model2dict(obj):
         if not key.startswith("_") and key != "metadata":
             obj_dict[key] = getattr(obj, key)
     return obj_dict
+
+
+def session_auto_commit(func):
+    @wraps(func)
+    def wrapper(*args, **kw):
+        ret = func(*args, **kw)
+        obj = args[0]
+        # print(f"obj == {obj}")
+        obj.session.commit()
+        obj.session.close()
+        return ret
+
+    return wrapper

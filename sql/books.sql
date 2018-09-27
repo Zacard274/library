@@ -3,7 +3,7 @@ CREATE TABLE `books` (
   `name` varchar(255) DEFAULT NULL,
   `price` varchar(16) DEFAULT NULL,
   `typeId` bigint(20) DEFAULT NULL,
-  `author` varchar(256) DEFAULT NULL,
+  `author` varchar(255) DEFAULT NULL,
   `press` varchar(255) DEFAULT NULL,
   `number` int DEFAULT NULL,
   `orderId` bigint(20),

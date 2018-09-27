@@ -4,10 +4,12 @@
 from sqlalchemy import Column, BIGINT, BOOLEAN, VARCHAR, ForeignKey
 from sqlalchemy.orm import relationship
 
-from .base import base
+from .base import MyMixin, Base
+
+from utils.orm_format import model_to_list, session_auto_commit
 
 
-class UserModel(base):
+class UserModel(MyMixin, Base):
     __tablename__ = "user"
 
     id = Column(BIGINT, primary_key=True, autoincrement=True)
@@ -30,4 +32,27 @@ class UserModel(base):
 
 class UserOrm(object):
     def __init__(self, db):
-        self.db = db
+        self.session = db.get_session()
+
+    @model_to_list
+    def get_all_users(self):
+        return self.session.query(UserModel).order_by(UserModel.id).all()
+
+    @session_auto_commit
+    def add_users(self, param):
+        new_user = UserModel(**param)
+        self.session.add(new_user)
+
+    @session_auto_commit
+    def del_users(self, param):
+        del_user = self.session.query(UserModel).filter_by(**param).first()
+        self.session.delete(del_user)
+
+    @model_to_list
+    def search_users(self, param):
+        users = self.session.query(UserModel).filter_by(**param).all()
+        return users
+
+    @session_auto_commit
+    def update_users(self, query_param, update_param):
+        self.session.query(UserModel).filter_by(**query_param).update(update_param)

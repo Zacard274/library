@@ -20,7 +20,6 @@ class Orm(object):
         self.username = os.environ.get("MYSQL_USERNAME")
         self.password = os.environ.get("MYSQL_PASSWORD")
         self.database = os.environ.get("MYSQL_DATABASE")
-        print(f"{self.username }, {self.password }")
         self.__session_init()
         self.user = UserOrm(self)
         self.order = OrderOrm(self)
@@ -30,9 +29,12 @@ class Orm(object):
         self.address = AddressesOrm(self)
 
     def __engine(self):
-        engine = create_engine(f"mysql+pymysql://{self.username}:{self.password}@127.0.0.1:3306/{self.database}")
+        engine = create_engine(
+            f"mysql+pymysql://{self.username}:{self.password}@127.0.0.1:3306/{self.database}?charset=utf8mb4")
         return engine
 
+    # scoped_session() session只在当前thread可见，起到保护作用
+    # (),能被调用的函数，都有__call__方法
     def __session_init(self):
         self.session = scoped_session(sessionmaker(bind=self.__engine()))()
 

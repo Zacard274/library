@@ -1,5 +1,5 @@
 CREATE TABLE `addresses`(
-`id` bigint(20) NOT NULL,
+`id` bigint(20) NOT NULL AUTO_INCREMENT,
 `userId` bigint(20) NOT NULL,
 `address` varchar(255) DEFAULT NULL,
 `selected` tinyint(1) DEFAULT NULL,
