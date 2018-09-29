@@ -50,7 +50,7 @@ class UserOrm(object):
 
     @model_to_list
     def search_users(self, param):
-        users = self.session.query(UserModel).filter_by(**param).all()
+        users = self.session.query(UserModel).filter_by(**param).first()
         return users
 
     @session_auto_commit

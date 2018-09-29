@@ -3,9 +3,22 @@
 import logging
 
 from orm import Pdb
+import json
+import datetime
 
 logging.basicConfig()
 logging.getLogger('sqlalchemy.engine').setLevel(logging.ERROR)
+
+
+class DateEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime.datetime):
+            return obj.strftime('%Y-%m-%d %H:%M:%S')
+        elif isinstance(obj, date):
+            return obj.strftime("%Y-%m-%d")
+        else:
+            return json.JSONEncoder.default(self, obj)
+
 
 # test
 if __name__ == "__main__":
@@ -76,3 +89,6 @@ if __name__ == "__main__":
     # print(type)
     #
     # Pdb.book_type.del_types({'id': 1})
+
+    book = Pdb.book.get_book_by_id(1)
+    print(json.dumps(book, cls=DateEncoder))
