@@ -10,6 +10,7 @@ app.register_blueprint(books_bp, url_prefix='/books')
 
 app.register_blueprint(user_bp, url_prefix='/user')
 
+
 if __name__ == '__main__':
     app.run()
 

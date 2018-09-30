@@ -24,8 +24,8 @@ class BooksModel(MyMixin, Base):
 
 
 class BooksOrm(object):
-    def __init__(self, instance):  # instance是__init__.py中Orm的实例作为参数传进来
-        self.session = instance.get_session()
+    def __init__(self, db):  # db是__init__.py中Orm的实例作为参数传进来
+        self.session = db.get_session()
 
     @session_auto_commit
     def add_books(self, param):

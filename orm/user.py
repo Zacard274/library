@@ -38,6 +38,9 @@ class UserOrm(object):
     def get_all_users(self):
         return self.session.query(UserModel).order_by(UserModel.id).all()
 
+    def get_all_mobile_number(self):
+        return self.session.query(UserModel.mobileNumber).all()
+
     @session_auto_commit
     def add_users(self, param):
         new_user = UserModel(**param)
