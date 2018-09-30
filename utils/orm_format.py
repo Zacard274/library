@@ -2,8 +2,6 @@
 # -*- coding: utf8 -*-
 
 from functools import wraps
-from datetime import datetime, date
-import json
 
 
 def model_to_list(func):
@@ -50,19 +48,5 @@ def session_auto_commit(func):
         finally:
             obj.session.close()
         return ret
-
-    return wrapper
-
-
-def time_to_json(func):
-    @wraps(func)
-    def wrapper(*args, **kw):
-        ret = func(*args, **kw)
-        if isinstance(ret, datetime):
-            return ret.strftime('%Y-%m-%d %H:%M:%S')
-        elif isinstance(ret, date):
-            return ret.strftime("%Y-%m-%d")
-        else:
-            return json.dumps(ret)
 
     return wrapper

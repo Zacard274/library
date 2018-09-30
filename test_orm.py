@@ -93,5 +93,8 @@ if __name__ == "__main__":
     # book = Pdb.book.get_book_by_id(1)
     # print(json.dumps(book, cls=DateEncoder))
 
-    user = Pdb.user.get_all_mobile_number()
-    print(user)
+    # user = Pdb.user.get_all_mobile_number()
+    # print(user)
+
+    books = Pdb.book.search_books('', 'book')
+    print(books)

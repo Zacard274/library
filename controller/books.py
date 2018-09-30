@@ -14,11 +14,10 @@ def index():
 
 @books_bp.route('/search', methods=['GET', 'POST'])
 def search():
-    param = request.args.get('param')
-    # print(dir(request))
-    if isinstance(param, str):
-        # 如果前端给到的是json，需要先转成dict
-        param = json.loads(param)
+    type_id = request.args.get('type_id')
+    keyword = request.args.get('keyword')
 
-    books = Pdb.book.search_books(param)
+    books = Pdb.book.search_books(type_id, keyword)
+    import pdb
+    pdb.set_trace()
     return json_success(books)
