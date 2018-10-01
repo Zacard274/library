@@ -26,3 +26,8 @@ class MyMixin(object):
 # base = declarative_base(cls=ModelBase)
 
 Base = declarative_base()
+
+
+class BaseOrm(object):
+    def __init__(self, db):
+        self.session = db.get_session()

@@ -3,6 +3,31 @@
 import json
 from datetime import datetime, date
 
+from werkzeug.local import LocalStack, LocalProxy
+from flask import request
+
+from orm import Pdb
+
+_user_stack = LocalStack()
+
+
+def get_current_user():
+    top = _user_stack.top
+    if top is None:
+        raise RuntimeError()
+    return top
+
+
+current_user = LocalProxy(get_current_user)
+
+
+def before_request():
+    access_token = request.headers["Authorization"]
+    user = Pdb.oauth2_session.get_user_by_access_token(access_token)
+    if not user:
+        print("user is None")
+    _user_stack.push(user)
+
 
 class ComplexEncoder(json.JSONEncoder):
     def default(self, obj):

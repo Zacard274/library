@@ -4,7 +4,7 @@
 from sqlalchemy import Column, VARCHAR, BIGINT
 from sqlalchemy.orm import relationship
 
-from .base import MyMixin, Base
+from .base import MyMixin, Base, BaseOrm
 from utils.orm_format import model_to_list, session_auto_commit
 
 
@@ -16,9 +16,9 @@ class BookTypeModel(MyMixin, Base):
     books = relationship("BooksModel", back_populates="bookType")
 
 
-class BookTypeOrm(object):
+class BookTypeOrm(BaseOrm):
     def __init__(self, db):
-        self.session = db.get_session()
+        super().__init__(db)
 
     @model_to_list
     def get_all_types(self):
