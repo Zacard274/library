@@ -30,8 +30,12 @@ if __name__ == "__main__":
     #
     # books = Pdb.book.get_all_books()
     # print(f"books == {books}")
-    # param = {"name": "book3", "price": "24.00", 'author': 'Navy'}
-    # Pdb.book.add_books(param)
+    # param1 = {"name": "book4", "price": "59.00", 'author': 'Navy', 'orderId': 1}
+    # param2 = {"name": "book5", "price": "36.40", 'author': 'Navy', 'orderId': 2}
+    # param3 = {"name": "book6", "price": "15.97", 'author': 'Demon', 'orderId': 1}
+    # Pdb.book.add_books(param1)
+    # Pdb.book.add_books(param2)
+    # Pdb.book.add_books(param3)
     #
     # book = Pdb.book.search_books({'price': '24.00'})
     # print(book)
@@ -95,6 +99,7 @@ if __name__ == "__main__":
 
     # user = Pdb.user.get_all_mobile_number()
     # print(user)
-
-    books = Pdb.book.search_books('', 'book')
-    print(books)
+    #
+    # books = Pdb.book.search_books('auth', typeId=3)
+    # print(books)
+    pass

@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*- coding: utf8 -*-
 
-from sqlalchemy import Column, ForeignKey, BIGINT, VARCHAR, INTEGER
+from sqlalchemy import Column, ForeignKey, BIGINT, VARCHAR, INTEGER, or_
 from sqlalchemy.orm import relationship
 
 from .base import Base, MyMixin, BaseOrm
@@ -15,7 +15,7 @@ class BooksModel(MyMixin, Base):
     name = Column(VARCHAR(255))
     price = Column(VARCHAR(16))
     typeId = Column(BIGINT, ForeignKey("book_type.id"))
-    bookType = relationship("BookTypeModel", back_populates="books")  #lazy模式
+    bookType = relationship("BookTypeModel", back_populates="books")  # lazy模式
     author = Column(VARCHAR(255))
     press = Column(VARCHAR(255))
     number = Column(INTEGER)
@@ -50,11 +50,13 @@ class BooksOrm(BaseOrm):
         self.session.query(BooksModel).filter_by(**query_param).update(update_param)
 
     @model_to_list
-    def search_books(self, type_id, keyword):
-        if type_id:
-            books = self.session.query(BooksModel).filter(BooksModel.typeId == type_id,
-                                                          BooksModel.name.like(f'%{keyword}%')).all()
-        else:
-            books = self.session.query(BooksModel).filter(BooksModel.name.like(f'%{keyword}%')).all()
+    def search_books(self, keyword, **kw):
 
+        book = self.session.query(BooksModel)
+        if keyword:
+            # book = book.filter(text("name like :param OR author like :param")).params(param=f"%{keyword}%")
+            book = book.filter(or_(BooksModel.name.like(f'%{keyword}%'), BooksModel.author.like(f'%{keyword}%')))
+        if kw:
+            book = book.filter_by(**kw)
+        books = book.all()
         return books
