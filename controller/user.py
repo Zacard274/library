@@ -1,6 +1,6 @@
-import json
-from flask import Blueprint, request
 import pymysql
+from flask import Blueprint, request
+
 from orm import Pdb
 from .base import json_fail, json_success
 

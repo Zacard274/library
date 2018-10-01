@@ -4,7 +4,7 @@
 from sqlalchemy import Column, BIGINT, BOOLEAN, VARCHAR, ForeignKey
 from sqlalchemy.orm import relationship
 
-from .base import MyMixin, Base
+from .base import MyMixin, Base, BaseOrm
 
 from utils.orm_format import model_to_list, session_auto_commit
 
@@ -28,11 +28,12 @@ class UserModel(MyMixin, Base):
     removed = Column(BOOLEAN)
     orders = relationship("OrderModel", back_populates="user")
     addresses = relationship("AddressesModel", back_populates="user")
+    oauth2_session = relationship("Oauth2SessionModel", back_populates="user")
 
 
-class UserOrm(object):
+class UserOrm(BaseOrm):
     def __init__(self, db):
-        self.session = db.get_session()
+        super().__init__(db)
 
     @model_to_list
     def get_all_users(self):

@@ -4,7 +4,7 @@
 from sqlalchemy import Column, VARCHAR, BIGINT, Boolean, INTEGER
 from sqlalchemy.dialects.mysql import DOUBLE
 
-from .base import MyMixin, Base
+from .base import MyMixin, Base, BaseOrm
 from utils.orm_format import model_to_list, session_auto_commit
 
 
@@ -28,9 +28,9 @@ class CityModel(Base):
     isInBadWeather = Column(Boolean)
 
 
-class CityOrm(object):
+class CityOrm(BaseOrm):
     def __init__(self, db):
-        self.session = db.get_session()
+        super().__init__(db)
 
     @model_to_list
     def gel_all_city(self):

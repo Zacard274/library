@@ -13,6 +13,7 @@ from .books import BooksOrm
 from .city import CityOrm
 from .order import OrderOrm
 from .user import UserOrm
+from .oauth2_session import Oauth2SessionOrm
 
 
 class Orm(object):
@@ -27,6 +28,7 @@ class Orm(object):
         self.book = BooksOrm(self)
         self.book_type = BookTypeOrm(self)
         self.address = AddressesOrm(self)
+        self.oauth2_session = Oauth2SessionOrm(self)
 
     def __engine(self):
         engine = create_engine(

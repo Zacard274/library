@@ -4,7 +4,7 @@
 from sqlalchemy import Column, ForeignKey, BIGINT, VARCHAR, INTEGER
 from sqlalchemy.orm import relationship
 
-from .base import Base, MyMixin
+from .base import Base, MyMixin, BaseOrm
 from utils.orm_format import model_to_list, model_to_dict, session_auto_commit
 
 
@@ -23,9 +23,9 @@ class BooksModel(MyMixin, Base):
     order = relationship("OrderModel", back_populates="books")
 
 
-class BooksOrm(object):
+class BooksOrm(BaseOrm):
     def __init__(self, db):  # db是__init__.py中Orm的实例作为参数传进来
-        self.session = db.get_session()
+        super().__init__(db)
 
     @session_auto_commit
     def add_books(self, param):

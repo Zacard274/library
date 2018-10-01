@@ -4,7 +4,7 @@
 from sqlalchemy import Column, BIGINT, BOOLEAN, VARCHAR, ForeignKey
 from sqlalchemy.orm import relationship
 
-from .base import Base
+from .base import Base, BaseOrm
 
 from utils.orm_format import model_to_list, session_auto_commit
 
@@ -20,9 +20,9 @@ class AddressesModel(Base):
     removed = Column(BOOLEAN, default=0)
 
 
-class AddressesOrm(object):
+class AddressesOrm(BaseOrm):
     def __init__(self, db):
-        self.session = db.get_session()
+        super().__init__(db)
 
     @model_to_list
     def get_all_addresses(self):

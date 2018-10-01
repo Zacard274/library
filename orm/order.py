@@ -5,7 +5,7 @@ from sqlalchemy import Column, BIGINT, BOOLEAN, VARCHAR, ForeignKey
 from sqlalchemy.dialects.mysql import TINYINT
 from sqlalchemy.orm import relationship
 
-from .base import NotNullColumn, MyMixin, Base
+from .base import NotNullColumn, MyMixin, Base, BaseOrm
 from utils.orm_format import session_auto_commit, model_to_list
 
 
@@ -22,9 +22,9 @@ class OrderModel(MyMixin, Base):
     user = relationship("UserModel", back_populates="orders")
 
 
-class OrderOrm(object):
+class OrderOrm(BaseOrm):
     def __init__(self, db):
-        self.session = db.get_session()
+        super().__init__(db)
 
     @model_to_list
     def get_all_orders(self):
