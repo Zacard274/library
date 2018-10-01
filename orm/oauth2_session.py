@@ -29,5 +29,8 @@ class Oauth2SessionOrm(BaseOrm):
     @model_to_dict
     def get_user_by_access_token(self, access_token):
         oauth2_session = self.session.query(Oauth2SessionModel).filter_by(accessToken=access_token).first()
+        import pdb
+        pdb.set_trace()
+
         user = oauth2_session.user
         return user

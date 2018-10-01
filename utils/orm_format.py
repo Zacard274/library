@@ -31,7 +31,7 @@ def model_to_dict(func):
 def _model2dict(obj):
     obj_dict = dict()
     for key in dir(obj):
-        if not key.startswith("_") and key != "metadata":
+        if not key.startswith("_") and key != "metadata" and not hasattr(getattr(obj, key), "__tablename__"):
             obj_dict[key] = getattr(obj, key)
     return obj_dict
 
