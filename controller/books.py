@@ -1,23 +1,23 @@
-from flask import Blueprint
-from orm import Pdb
 import json
-import datetime
+from flask import Blueprint, request
+from orm import Pdb
+from .base import json_success
 
 books_bp = Blueprint('books', __name__)
 
 
-class DateEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, datetime.datetime):
-            return obj.strftime('%Y-%m-%d %H:%M:%S')
-        elif isinstance(obj, date):
-            return obj.strftime("%Y-%m-%d")
-        else:
-            return json.JSONEncoder.default(self, obj)
-
-
-@books_bp.route('/')
+@books_bp.route('/', methods=['GET', 'POST'])
 def index():
     books = Pdb.book.get_all_books()
-    return json.dumps(books, cls=DateEncoder)
+    return json_success(books)
 
+
+@books_bp.route('/search', methods=['GET', 'POST'])
+def search():
+    type_id = request.args.get('type_id')
+    keyword = request.args.get('keyword')
+
+    books = Pdb.book.search_books(type_id, keyword)
+    import pdb
+    pdb.set_trace()
+    return json_success(books)

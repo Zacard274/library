@@ -11,7 +11,7 @@ def model_to_list(func):
         if isinstance(ret, list):
             return [_model2dict(obj) for obj in ret]
         else:
-            return [_model2dict(ret)]
+            return [_model2dict(ret)] if _model2dict(ret) else []
 
     return wrapper
 
@@ -41,9 +41,12 @@ def session_auto_commit(func):
     def wrapper(*args, **kw):
         ret = func(*args, **kw)
         obj = args[0]
-        # print(f"obj == {obj}")
-        obj.session.commit()
-        obj.session.close()
+        try:
+            obj.session.commit()
+        except Exception as e:
+            raise e
+        finally:
+            obj.session.close()
         return ret
 
     return wrapper
