@@ -1,5 +1,6 @@
 # !/usr/bin/env python
 import json
+import time
 
 from nameko.events import EventDispatcher, event_handler
 from nameko.rpc import rpc
@@ -23,6 +24,7 @@ class ServiceB:
 
     @event_handler("service_a", "event_type")
     def handle_event(self, payload):
+        time.sleep(100)
         print("service b received:", payload)
 
 

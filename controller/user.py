@@ -1,5 +1,8 @@
 import pymysql
 from flask import Blueprint, request
+from flask_wtf import Form
+from wtforms import StringField, PasswordField
+from wtforms.validators import length, DataRequired, EqualTo
 
 from orm import Pdb
 from .base import json_fail, json_success
@@ -12,28 +15,18 @@ LOGIN_ERROR = "the mobileNumber and password do not match"
 PARAM_ERROR = "parameter is invalid"
 
 
-class RegisterItem(object):
-    def __init__(self):
-        self.username = request.form.get('username')
-        self.password1 = request.form.get('password1')
-        self.password2 = request.form.get('password2')
-        self.mobile_number = request.form.get('mobile_number')
-
-    def check_param(self):
-        if all([self.username, self.password1, self.password2, self.mobile_number]):
-            if self.password1 != self.password2:
-                return False, PASSWORDS_DIFFER
-            else:
-                return True, ''
-        return False, PARAM_ERROR
+class RegisterItem(Form):
+    username = StringField("username", [DataRequired(), length(min=4, max=25)])
+    password = PasswordField("password", [DataRequired(), EqualTo("confirm", message="password must match")])
+    confirm = PasswordField("repeat_password")
+    mobile_number = StringField("mobile_number", [length(min=11, max=11)])
 
 
 @user_bp.route('/register', methods=['GET', 'POST'])
 def register():
     req_item = RegisterItem()
-    is_param_valid, msg = req_item.check_param()
-    if not is_param_valid:
-        return json_fail(msg)
+    if not req_item.validate():
+        return json_fail("FORM_INVALID")
 
     existed_mobile_number = Pdb.user.search_users({'mobileNumber': req_item.mobile_number})
     existed_username = Pdb.user.search_users({'username': req_item.username})
