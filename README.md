@@ -2,7 +2,7 @@
 * init.py 启动文件
 * config.py 配置文件
 * fabfile.py 版本发布文件
-* controller 处理
+* controller 控制器
 * structure 数据封装
 * utils 工具库
 * logs 日志
@@ -18,8 +18,18 @@
 - [ ] 查找自己代码的不足，尝试重构代码
 - [ ] 性能调优，迁移更多的功能到微服务上
 
-**需要说明的是nameko需要先启动rabbitmq：
-docker run -d --hostname my-rabbit --name some-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management**
+**需要说明的是
+nameko需要先启动rabbitmq：
+**
+
+```
+docker run -d --hostname my-rabbit --name some-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+
+./helloworld.sh 启动微服务
+test.py 中有微服务的使用说明 ：rpc event http 三种方式
+foobar.yaml中有微服务的配置文件
+
+```
 
 :tada: *后续可以添加python docs工具sphinx、 sentry等工具*
 
