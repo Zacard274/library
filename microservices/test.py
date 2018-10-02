@@ -52,4 +52,5 @@ if __name__ == "__main__":
     # test_event()
     # stop2 = time.time()
     # print(f"stop2-start2 == {stop2-start2}")
-    test_http()
+    # test_http()
+    test_event()
