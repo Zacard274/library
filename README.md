@@ -24,6 +24,11 @@ nameko需要先启动rabbitmq：
 
 ```
 docker run -d --hostname my-rabbit --name some-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+pip install nameko
+如果nameko 报dns错误：
+git clone https://github.com/rthalley/dnspython
+cd dnspython/
+python setup.py install
 
 ./helloworld.sh 启动微服务
 test.py 中有微服务的使用说明 ：rpc event http 三种方式
