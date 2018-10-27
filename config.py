@@ -13,3 +13,8 @@ SQLALCHEMY_TRACK_MODIFICATIONS = True
 DEBUG = True
 
 SECRET_KEY = os.urandom(24)
+
+REDIS = {
+    'host': '127.0.0.1',
+    'port':6379
+}

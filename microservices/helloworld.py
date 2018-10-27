@@ -6,7 +6,8 @@ from nameko.events import EventDispatcher, event_handler
 from nameko.rpc import rpc
 from nameko.web.handlers import http
 
-
+# 1.event
+# 把payload分发的过程，分发给event_type，
 class ServiceA:
     """ Event dispatching service. """
     name = "service_a"
@@ -18,6 +19,7 @@ class ServiceA:
         self.dispatch("event_type", payload)
 
 
+# event_type的处理函数
 class ServiceB:
     """ Event listening service. """
     name = "service_b"
@@ -28,6 +30,7 @@ class ServiceB:
         print("service b received:", payload)
 
 
+# 2.rpc
 class Compute(object):
     name = "compute"
 
@@ -45,9 +48,11 @@ class Compute(object):
             return result
 
 
+# 3.http
 class HttpService:
     name = "http_service"
 
+    # @http('方法', '/路由')
     @http('GET', '/get/<int:value>')
     def get_method(self, request, value):
         return json.dumps({'value': value})

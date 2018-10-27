@@ -9,7 +9,7 @@ from flask import request
 from orm import Pdb
 
 _user_stack = LocalStack()
-
+# LocalStack 是用 Local 实现的栈结构，可以将对象推入、弹出，也可以快速拿到栈顶对象。
 
 def get_current_user():
     top = _user_stack.top
@@ -19,6 +19,7 @@ def get_current_user():
 
 
 current_user = LocalProxy(get_current_user)
+#
 
 
 def before_request():

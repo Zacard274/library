@@ -6,6 +6,12 @@ from .base import json_success
 city_bp = Blueprint('city', __name__)
 
 
+@city_bp.route('/', methods=['GET', 'POST'])
+def index():
+    city = Pdb.city.gel_all_city()
+    return json_success(city)
+
+
 @city_bp.route('/search', methods=['GET', 'POST'])
 def search():
     param = request.args.get('param')

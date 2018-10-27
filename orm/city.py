@@ -42,8 +42,8 @@ class CityOrm(BaseOrm):
         self.session.add(new_city)
 
     @session_auto_commit
-    def del_city(self, param):
-        del_city = self.session.query(CityModel).filter_by(**param).first()
+    def del_city_by_id(self, city_id):
+        del_city = self.session.query(CityModel).filter_by(Id=city_id).first()
         self.session.delete(del_city)
 
     @model_to_list
